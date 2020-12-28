@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: bd5affaa443faf345ab17fecd1d81edd
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Rabbid Highway Sign II
+  fontNames:
+  - Rabbid Highway Sign II
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 4b40d70cc4f08cc4c8a0edc03d15eaf0, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
