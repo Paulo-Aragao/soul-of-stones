@@ -4,20 +4,17 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
+    private int _cardId;
     private int _hp;
     private int _rangeATK;
     private string _unityType;//tank, hero, range, avance
     private SpriteRenderer _sprite;
     private Animator _anim;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private int _user;//p1 or p2/IA
+    public Unit(int cardId,int hp, int rangeATK, string unityType){
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    }
+    public void SetingUnitFromThePLayer(Card card){
+        gameObject.SetActive(true);
     }
 }

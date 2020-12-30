@@ -29,4 +29,18 @@ public class GameCTL : MonoBehaviour
     {
         _grid = GameObject.FindGameObjectWithTag("grid").GetComponent<GridCTL>();
     }
+
+    //execute action card
+    public void UserCard(Card card){
+        if(PlayerCTL.Instance.GetTargetTile() != null){
+            switch (card.GetCardType())
+            {
+                case "unit":
+                    PlayerCTL.Instance.PlantUnit(card);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
 }

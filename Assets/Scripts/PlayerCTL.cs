@@ -41,7 +41,6 @@ public class PlayerCTL : MonoBehaviour
             return _instance;
         }
     }
-
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
@@ -55,6 +54,9 @@ public class PlayerCTL : MonoBehaviour
             int index = random.Next(_deck.Count);
             _hand.Add(_deck[index]);
         }   
+    }
+    public void PlantUnit(Card card){
+        _targetTile.GetUnit().SetingUnitFromThePLayer(card);
     }
 
 }

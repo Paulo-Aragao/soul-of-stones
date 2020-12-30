@@ -26,7 +26,7 @@ public class Tile : MonoBehaviour
     {
         _rend = GetComponent<Renderer>();
     }
-
+    
     // The mesh goes red when the mouse is over it...
     void OnMouseEnter()
     {
