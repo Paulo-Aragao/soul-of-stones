@@ -31,6 +31,6 @@ public class DragCard : MonoBehaviour ,IBeginDragHandler, IDragHandler, IEndDrag
         PlayerCTL.Instance.SetDragingCard(false);
         transform.localPosition = _originalPosition;
         transform.localScale = _originalScale;
-        GameCTL.Instance.UserCard(gameObject.GetComponent<Card>());
+        GameCTL.Instance.UseCard(gameObject.GetComponent<Card>());
     }
 }

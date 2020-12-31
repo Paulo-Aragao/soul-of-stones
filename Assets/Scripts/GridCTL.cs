@@ -6,19 +6,21 @@ public class GridCTL : MonoBehaviour
 {
     [SerializeField] private int _columns,_lines;
     [SerializeField] private GameObject _tilePrefab;
-    private List<Tile> _tiles = new List<Tile>();
+    //private List<Tile> _tiles = new List<Tile>();
+    private Tile[,] _tiles;
 
     #region GETS AND SETS  
-    public List<Tile> GetTiles(){
+    public Tile[,] GetTiles(){
         return _tiles;
     }
-    public void SetTiles(List<Tile> tilesList){
+    public void SetTiles(Tile[,] tilesList){
         _tiles = tilesList;
     }
     #endregion 
     // Start is called before the first frame update
     void Start()
     {
+        _tiles = new Tile[_columns, _lines];
         transform.position = new Vector3(0,0,0);
         GameObject tile;
         int id = 0;
@@ -30,7 +32,7 @@ public class GridCTL : MonoBehaviour
                 tile.transform.parent = gameObject.transform;
                 tile.GetComponent<Tile>().SetId(id);
                 id++;
-                _tiles.Add(tile.GetComponent<Tile>());
+                _tiles[i,j] = tile.GetComponent<Tile>();
             }
         }
     }
@@ -38,6 +40,6 @@ public class GridCTL : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+    
     }
 }

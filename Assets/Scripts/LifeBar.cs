@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CardUnity : Card
+public class LifeBar : MonoBehaviour
 {
-    private int _hp;
-    private int _rangeATK;
-    private string _unityType;//tank, hero, range, avance
     // Start is called before the first frame update
     void Start()
     {
