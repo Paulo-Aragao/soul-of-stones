@@ -6,7 +6,9 @@ public class Tile : MonoBehaviour
 {
     private int _id;
     private Renderer _rend;
+    [SerializeField] private Transform _unitPosition;
     [SerializeField] private Unit _unit;
+    [SerializeField] private bool _isUsed;
 
     #region GETS AND SETS  
     public int GetId(){
@@ -21,21 +23,31 @@ public class Tile : MonoBehaviour
     public void SetUnit(Unit unit){
         _unit = unit;
     }
+    public bool GetIsUsed(){
+        return _isUsed;
+    }
+    public void SetIsUsed(bool isUsed){
+        _isUsed = isUsed;
+    }
     #endregion
     void Start()
     {
+        _isUsed = false;
         _rend = GetComponent<Renderer>();
     }
-    
+    public void InstantiateUnit(GameObject unit){
+        var unit_ = unit.GetComponent<Unit>();
+        _unit = Instantiate(unit_, _unitPosition.position, _unitPosition.transform.rotation);
+    }
     // The mesh goes red when the mouse is over it...
     void OnMouseEnter()
     {
         if(PlayerCTL.Instance.GetDragingCard()){
             PlayerCTL.Instance.SetTargetTile(this);
-            if(_unit.isActiveAndEnabled){
-                _rend.material.color = Color.red;
-            }else{
+            if(_unit == null){
                 _rend.material.color = Color.blue;
+            }else{
+                _rend.material.color = Color.red;
             }
         }
     }

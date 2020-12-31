@@ -10,6 +10,7 @@ public class PlayerCTL : MonoBehaviour
     private int _deckSize = 30;
     private List<Card> _deck;
     private List<Card> _hand;
+    private List<Card> _gy;
     private CardsHandCTL _handCTL;
     //acess variables
     private Tile _targetTile;
@@ -64,13 +65,27 @@ public class PlayerCTL : MonoBehaviour
         for (int i = 0; i < 5; i++)
         {
             DrawCard();
+            
         }
           
     }
+    void Update()
+    {
+        if (Input.GetKeyDown("a"))
+        {
+            DrawCard();
+        }
+    }
     public void DrawCard(){
-        var random = new System.Random();
-        int index = random.Next(_deck.Count);
-        _hand.Add(_deck[index]);
+        if(_handCTL.ExistFreeSpaceCard() && _deck.Count > 0){
+            var random = new System.Random();
+            int index = random.Next(0,_deck.Count);
+            _hand.Add(_deck[index]);
+            _handCTL.AddCardInHand(_deck[index]);
+            _deck.RemoveAt(index);
+        }else{
+            Debug.Log("impossible draw,hand full");
+        }
     } 
 
 }

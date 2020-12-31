@@ -39,7 +39,7 @@ public class GameCTL : MonoBehaviour
     public Card PickACardInListOfAllCards(bool randomCard, int id = -1){
         if(randomCard){
             var random = new System.Random();
-            int index = random.Next(_listOfAllCards.Count);
+            int index = random.Next(0,_listOfAllCards.Count);
             return _listOfAllCards[index];
         }else{
             try
@@ -94,13 +94,23 @@ public class GameCTL : MonoBehaviour
         }
     }
     //execute action card
-    public void UseCard(Card card){
+    public void UseCard(CardUI card){
         if(PlayerCTL.Instance.GetTargetTile() != null){
-            switch (card.GetCardType())
+            switch (_listOfAllCards[card.GetCardId()].GetCardType())
             {
                 case "unit":
-                    if(!PlayerCTL.Instance.GetTargetTile().GetUnit().isActiveAndEnabled){
-                       PlayerCTL.Instance.GetTargetTile().GetUnit().SetingUnitFromThePLayer(card);
+                    if(!PlayerCTL.Instance.GetTargetTile().GetIsUsed()){
+                        PlayerCTL.Instance.GetTargetTile().SetIsUsed(true);
+                        try
+                        {
+                            PlayerCTL.Instance.GetTargetTile().InstantiateUnit(Resources.Load("Prefabs/Units/"+card.GetCardId()) as GameObject);
+                        }
+                        catch (System.Exception e)
+                        {
+                            Debug.Log(e);
+                            throw;
+                        }
+                        PlayerCTL.Instance.GetTargetTile().GetUnit().AcivingTheUnit(_listOfAllCards[card.GetCardId()]);
                         card.gameObject.SetActive(false); 
                     }
                     break;
