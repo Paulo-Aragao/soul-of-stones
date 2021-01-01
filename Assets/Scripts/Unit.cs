@@ -25,7 +25,8 @@ public class Unit : MonoBehaviour
         return _cardRefence;
     }
 
-    public void AcivingTheUnit(Card card){
+    public void AcivingTheUnit(Card card,int userId){
+        _user = userId;
         _cardRefence = card;
         gameObject.SetActive(true);
         //TODO: anim de inicio e efeito especial
@@ -35,11 +36,18 @@ public class Unit : MonoBehaviour
     void Start()
     {
         _actions = new ActionsUnit();
-        _actions.Attacking(PlayerCTL.Instance.GetId(),transform.parent.gameObject.GetComponent<Tile>(),_cardRefence.GetAtkRange());
+        //_actions.Attacking(_user,transform.parent.gameObject.GetComponent<Tile>(),_cardRefence.GetAtkRange());
     }
+    float timer = 0;
+    float destiny = 2F;
+    // Update is called once per frame
     void Update()
     {
-        TakeDamage(1);
+        timer += Time.deltaTime;
+        if(timer > destiny){
+            destiny +=2F;
+            _actions.Attacking(_user,transform.parent.gameObject.GetComponent<Tile>(),_cardRefence.GetAtkRange());
+        }
     }
     private IEnumerator TimerRoutine()
     {

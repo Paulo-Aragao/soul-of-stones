@@ -30,7 +30,7 @@ public class Tile : MonoBehaviour
         _isUsed = isUsed;
     }
     #endregion
-    void Start()
+    void Awake()
     {
         _isUsed = false;
         _rend = GetComponent<Renderer>();

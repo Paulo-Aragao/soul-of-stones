@@ -40,6 +40,10 @@ public class GameCTL : MonoBehaviour
         _grid = GameObject.FindGameObjectWithTag("grid").GetComponent<GridCTL>();
         _listOfAllCards = new List<Card>();
         ReadData("/cards.tsv");
+        _grid.GetTiles()[5,5].SetIsUsed(true);
+        _grid.GetTiles()[5,5].InstantiateUnit(Resources.Load("Prefabs/Units/"+0.ToString()) as GameObject,-1);
+        _grid.GetTiles()[5,5].GetUnit().AcivingTheUnit(_listOfAllCards[0],-2);
+        
     }
      
     public Card PickACardInListOfAllCards(bool randomCard, int id = -1){
@@ -116,7 +120,7 @@ public class GameCTL : MonoBehaviour
                             Debug.Log(e);
                             throw;
                         }
-                        PlayerCTL.Instance.GetTargetTile().GetUnit().AcivingTheUnit(_listOfAllCards[card.GetCardId()]);
+                        PlayerCTL.Instance.GetTargetTile().GetUnit().AcivingTheUnit(_listOfAllCards[card.GetCardId()],PlayerCTL.Instance.GetId());
                         card.gameObject.SetActive(false); 
                     }
                     break;
