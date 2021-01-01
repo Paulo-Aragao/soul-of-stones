@@ -6,6 +6,9 @@ public class RangeTiles : MonoBehaviour
 {
     private List<int[]> _tilesInRange;
     
+    public List<int[]> GetTileInRange(){
+        return _tilesInRange;
+    }
     //-1,-1;-1,0;-1,+1;0,-1;0,+1;+1,-1;+1,0;+1,+1 exemple of 
     public RangeTiles(string rangeTilesInString){
         _tilesInRange = new List<int[]>();

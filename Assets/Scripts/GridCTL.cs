@@ -9,7 +9,13 @@ public class GridCTL : MonoBehaviour
     //private List<Tile> _tiles = new List<Tile>();
     private Tile[,] _tiles;
 
-    #region GETS AND SETS  
+    #region GETS AND SETS
+    public int GetColumns(){
+        return _columns;
+    }  
+    public int GetLines(){
+        return _lines;
+    }
     public Tile[,] GetTiles(){
         return _tiles;
     }

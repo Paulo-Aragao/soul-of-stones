@@ -9,7 +9,7 @@ public class Tile : MonoBehaviour
     [SerializeField] private Transform _unitPosition;
     [SerializeField] private Unit _unit;
     [SerializeField] private bool _isUsed;
-
+    [SerializeField] public GameObject _VFX;
     #region GETS AND SETS  
     public int GetId(){
         return _id;
@@ -35,9 +35,11 @@ public class Tile : MonoBehaviour
         _isUsed = false;
         _rend = GetComponent<Renderer>();
     }
-    public void InstantiateUnit(GameObject unit){
+    public void InstantiateUnit(GameObject unit,int playerId){
         var unit_ = unit.GetComponent<Unit>();
         _unit = Instantiate(unit_, _unitPosition.position, _unitPosition.transform.rotation);
+        _unit.SetUser(playerId);
+        _unit.transform.parent = gameObject.transform;
     }
     // The mesh goes red when the mouse is over it...
     void OnMouseEnter()

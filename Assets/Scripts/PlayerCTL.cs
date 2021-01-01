@@ -12,11 +12,16 @@ public class PlayerCTL : MonoBehaviour
     private List<Card> _hand;
     private List<Card> _gy;
     private CardsHandCTL _handCTL;
+    private System.Random _random;
+    
     //acess variables
     private Tile _targetTile;
     //status variables
     private bool _dragingCard;
-    #region GETS AND SETS  
+    #region GETS AND SETS 
+    public int GetId(){
+        return _id;
+    } 
     public bool GetDragingCard(){
         return _dragingCard;
     }
@@ -52,6 +57,8 @@ public class PlayerCTL : MonoBehaviour
     
     void Start()
     {
+        _random = new System.Random();
+        _id = _random.Next(9999999);
         _handCTL = GameObject.FindGameObjectWithTag("handCTL").GetComponent<CardsHandCTL>();
         _deck = new List<Card>();
         _hand = new List<Card>();
@@ -78,8 +85,7 @@ public class PlayerCTL : MonoBehaviour
     }
     public void DrawCard(){
         if(_handCTL.ExistFreeSpaceCard() && _deck.Count > 0){
-            var random = new System.Random();
-            int index = random.Next(0,_deck.Count);
+            int index = _random.Next(0,_deck.Count);
             _hand.Add(_deck[index]);
             _handCTL.AddCardInHand(_deck[index]);
             _deck.RemoveAt(index);

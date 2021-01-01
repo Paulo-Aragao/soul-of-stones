@@ -5,10 +5,14 @@ using System.IO;
 public class GameCTL : MonoBehaviour
 {
     private GridCTL _grid;
+    private System.Random _random;
     //cards de teste
     [SerializeField] private List<Card> _listOfAllCards;
     public List<Card> GetListOfAllCards(){
         return _listOfAllCards;
+    }
+    public GridCTL GetGrid(){
+        return _grid;
     }
     #region SINGLETON
     private static GameCTL _instance;
@@ -32,14 +36,15 @@ public class GameCTL : MonoBehaviour
     #endregion
     void Start()
     {
+        _random = new System.Random();
         _grid = GameObject.FindGameObjectWithTag("grid").GetComponent<GridCTL>();
         _listOfAllCards = new List<Card>();
         ReadData("/cards.tsv");
     }
+     
     public Card PickACardInListOfAllCards(bool randomCard, int id = -1){
         if(randomCard){
-            var random = new System.Random();
-            int index = random.Next(0,_listOfAllCards.Count);
+            int index = _random.Next(_listOfAllCards.Count);
             return _listOfAllCards[index];
         }else{
             try
@@ -103,7 +108,8 @@ public class GameCTL : MonoBehaviour
                         PlayerCTL.Instance.GetTargetTile().SetIsUsed(true);
                         try
                         {
-                            PlayerCTL.Instance.GetTargetTile().InstantiateUnit(Resources.Load("Prefabs/Units/"+card.GetCardId()) as GameObject);
+                            PlayerCTL.Instance.GetTargetTile().InstantiateUnit(Resources.Load("Prefabs/Units/"+card.GetCardId()) as GameObject,
+                                                                                PlayerCTL.Instance.GetId());
                         }
                         catch (System.Exception e)
                         {
