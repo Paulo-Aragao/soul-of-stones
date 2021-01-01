@@ -5,15 +5,14 @@ using UnityEngine.UI;
 
 public class Unit : MonoBehaviour
 {
-    private Card _cardRefence;
-    private ActionsUnit _actions;
-    [SerializeField] private SpriteRenderer _sprite;
-    [SerializeField] private Animator _anim;
-    [SerializeField] private Slider _lifeBar;
-    
-    private float _hpPorPercent;//quanto hp equivale a 1% da lifebar
-    private int _currentHp;
-    private int _user;//p1 or p2/IA
+    protected Card _cardRefence;
+    protected ActionsUnit _actions;
+    [SerializeField] protected SpriteRenderer _sprite;
+    [SerializeField] protected Animator _anim;
+    [SerializeField] protected Slider _lifeBar;
+    protected float _hpPorPercent;//quanto hp equivale a 1% da lifebar
+    protected int _currentHp;
+    protected int _user;//p1 or p2/IA
     
     public int GetUser(){
         return _user;
@@ -40,23 +39,6 @@ public class Unit : MonoBehaviour
         _actions = new ActionsUnit();
         //_actions.Attacking(_user,transform.parent.gameObject.GetComponent<Tile>(),_cardRefence.GetAtkRange());
     }
-    float timer = 0;
-    float destiny = 2F;
-    // Update is called once per frame
-    void Update()
-    {
-        timer += Time.deltaTime;
-        if(timer > destiny){
-            destiny +=2F;
-            _actions.Attacking(_user,transform.parent.gameObject.GetComponent<Tile>(),_cardRefence.GetAtkRange(),
-                                Resources.Load("Prefabs/Vfxs/"+_cardRefence.GetAtkVfxId().ToString()) as GameObject);
-        }
-    }
-    private IEnumerator TimerRoutine()
-    {
-        yield return new WaitForSeconds(5); //code pauses for 5 seconds
-        Debug.Log("atk");
-    }
     public void TakeDamage(int damage){
         if((_currentHp - damage) < 1){
             _lifeBar.value = 0;
@@ -76,6 +58,10 @@ public class Unit : MonoBehaviour
         if((_currentHp + heal) > _cardRefence.GetHp()){
             _lifeBar.value = 100;
             //anim heal null
+        }else{
+            Debug.Log("heling this unity");
+            _currentHp += heal;
+            _lifeBar.value = (int)_currentHp/_hpPorPercent;
         }
     }
     
