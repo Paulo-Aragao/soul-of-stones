@@ -5,7 +5,7 @@ using UnityEngine;
 public class ActionsUnit : MonoBehaviour
 {
     //base attack of all unity
-    public void Attacking(int playerID,Tile currentTile,RangeTiles tilesInRange){
+    public void Attacking(int playerID,Tile currentTile,RangeTiles tilesInRange,GameObject vfxPrefab = null){
         foreach (var tile in tilesInRange.GetTileInRange())
         {
             if((int)currentTile.transform.position.z + tile[1] < GameCTL.Instance.GetGrid().GetLines()
@@ -14,17 +14,17 @@ public class ActionsUnit : MonoBehaviour
                 && (int)currentTile.transform.position.x + tile[0] >= 0)
             {
                 Tile targetTile = GameCTL.Instance.GetGrid().GetTiles()[(int)currentTile.transform.position.x + tile[0],
-                                                                (int)currentTile.transform.position.z + tile[1]];
-                if(playerID != -2){
-                    Debug.Log(GameCTL.Instance.GetGrid().GetTiles()[5,5].GetIsUsed());
-                }    
-                if(targetTile.GetIsUsed()){//&& targetTile.GetUnit().GetUser() != playerID
-                    //Debug.Log(playerID+ " attack >>> " + targetTile.GetUnit().GetUser());
+                                                                (int)currentTile.transform.position.z + tile[1]];    
+                if(targetTile.GetIsUsed()){
                     if(targetTile.GetUnit().GetUser() != playerID){
                         targetTile.GetUnit().TakeDamage(targetTile.GetUnit().GetCardRefecence().GetAtkDamage());
+                        if(vfxPrefab != null){
+                            targetTile.SpawnVFX(vfxPrefab);
+                        }  
                     }
                 };
-                targetTile._VFX.SetActive(true);    
+                //use the vfx 
+                
             }   
         }
     }

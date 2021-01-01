@@ -43,7 +43,7 @@ public class GameCTL : MonoBehaviour
         _grid.GetTiles()[5,5].SetIsUsed(true);
         _grid.GetTiles()[5,5].InstantiateUnit(Resources.Load("Prefabs/Units/"+0.ToString()) as GameObject,-1);
         _grid.GetTiles()[5,5].GetUnit().AcivingTheUnit(_listOfAllCards[0],-2);
-        
+        _grid.GetTiles()[5,5].GetUnit().GetSprite().color = Color.red;
     }
      
     public Card PickACardInListOfAllCards(bool randomCard, int id = -1){
@@ -72,7 +72,7 @@ public class GameCTL : MonoBehaviour
             //0-name	1-kingdom	2-card_type	3-cost_mana	4-unit_type	
             //5-hp	  6-atk_range	  7-atk_damage	8-atk_speed	
             //9-heal_power	 10-heal_range	  11-heal_speed	
-            //12-respawn_cooldown	13-move_speed
+            //12-respawn_cooldown	13-move_speed 14-atk_vfx_id
             int countId = 0;
             bool head = true;
             while (!reader.EndOfStream)
@@ -94,7 +94,8 @@ public class GameCTL : MonoBehaviour
                                     int.Parse(values[9]),
                                     new RangeTiles(values[10]),
                                     int.Parse(values[11]),
-                                    int.Parse(values[13])); 
+                                    int.Parse(values[13]),
+                                    int.Parse(values[14])); 
                     _listOfAllCards.Add(card);
                     countId++;
                 }

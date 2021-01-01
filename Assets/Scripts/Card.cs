@@ -19,6 +19,7 @@ public class Card : MonoBehaviour
     [SerializeField] private RangeTiles _healRange;
     [SerializeField] private int _healSpeed;
     [SerializeField] private int _moveSpeed;
+    [SerializeField] private int _atkVfxId;
     #region GETS AND SETS  
     public int GetId(){
         return _id;
@@ -110,6 +111,12 @@ public class Card : MonoBehaviour
     public void SetMoveSpeed(int moveSpeed){
         _moveSpeed = moveSpeed;
     }
+    public int GetAtkVfxId(){
+        return _atkVfxId;
+    }
+    public void SetAtkVfxId(int atkVfxId){
+        _atkVfxId = atkVfxId;
+    }
     #endregion 
     // Start is called before the first frame update
     
@@ -117,7 +124,7 @@ public class Card : MonoBehaviour
                     int respawnCooldown,int manaCost,string unityType,
                     int hp, RangeTiles atkRange,int atkDamage,int atkSpeed,
                     int healPower,RangeTiles healRange,int healSpeed,
-                    int moveSpeed){
+                    int moveSpeed,int atkVfxId){
         _id = id;
         _name = name;
         _kingdom = kingdom;
@@ -133,5 +140,6 @@ public class Card : MonoBehaviour
         _healRange = healRange;
         _healSpeed = healSpeed;
         _moveSpeed = moveSpeed;
+        _atkVfxId = atkVfxId;
     }
 }

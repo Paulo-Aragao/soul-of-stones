@@ -67,7 +67,8 @@ public class PlayerCTL : MonoBehaviour
             Card card = GameCTL.Instance.PickACardInListOfAllCards(true);
             _deck.Add(new Card(card.GetId(),card.GetName(),card.GetKingdom(),card.GetCardType(),card.GetRespawnCooldown(),
                             card.GetManaCost(),card.GetUnityType(),card.GetHp(),card.GetAtkRange(),card.GetAtkDamage(),
-                            card.GetAtkSpeed(),card.GetHealPower(),card.GetHealRange(),card.GetHealSpeed(),card.GetMoveSpeed()));
+                            card.GetAtkSpeed(),card.GetHealPower(),card.GetHealRange(),card.GetHealSpeed(),card.GetMoveSpeed(),
+                            card.GetAtkVfxId()));
         } 
         for (int i = 0; i < 5; i++)
         {

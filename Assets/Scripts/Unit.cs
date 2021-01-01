@@ -24,7 +24,9 @@ public class Unit : MonoBehaviour
     public Card GetCardRefecence(){
         return _cardRefence;
     }
-
+    public SpriteRenderer GetSprite(){
+        return _sprite;
+    }
     public void AcivingTheUnit(Card card,int userId){
         _user = userId;
         _cardRefence = card;
@@ -46,7 +48,8 @@ public class Unit : MonoBehaviour
         timer += Time.deltaTime;
         if(timer > destiny){
             destiny +=2F;
-            _actions.Attacking(_user,transform.parent.gameObject.GetComponent<Tile>(),_cardRefence.GetAtkRange());
+            _actions.Attacking(_user,transform.parent.gameObject.GetComponent<Tile>(),_cardRefence.GetAtkRange(),
+                                Resources.Load("Prefabs/Vfxs/"+_cardRefence.GetAtkVfxId().ToString()) as GameObject);
         }
     }
     private IEnumerator TimerRoutine()

@@ -9,7 +9,7 @@ public class Tile : MonoBehaviour
     [SerializeField] private Transform _unitPosition;
     [SerializeField] private Unit _unit;
     [SerializeField] private bool _isUsed;
-    [SerializeField] public GameObject _VFX;
+    [SerializeField] public Transform _positionVFX;
     #region GETS AND SETS  
     public int GetId(){
         return _id;
@@ -34,6 +34,11 @@ public class Tile : MonoBehaviour
     {
         _isUsed = false;
         _rend = GetComponent<Renderer>();
+    }
+    public void SpawnVFX(GameObject vfx){
+        var vfx_ = vfx;
+        vfx_ = Instantiate(vfx, _positionVFX.position, _positionVFX.transform.rotation);
+        vfx_.transform.parent = gameObject.transform;
     }
     public void InstantiateUnit(GameObject unit,int playerId){
         var unit_ = unit.GetComponent<Unit>();
