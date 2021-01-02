@@ -38,6 +38,10 @@ public class Tile : MonoBehaviour
         _isUsed = false;
         _rend = GetComponent<Renderer>();
     }
+    public void FreeUnit(){
+        _unit = null;
+        _isUsed = false;
+    }
     public void SpawnVFX(GameObject vfx){
         var vfx_ = vfx;
         vfx_ = Instantiate(vfx, _positionVFX.position, _positionVFX.transform.rotation);

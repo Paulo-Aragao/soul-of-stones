@@ -17,21 +17,18 @@ public class Astar : MonoBehaviour
             }
         }
         MatrixNode endNode = AStar(matrix, fromX, fromY, toX, toY);
-
+        if(endNode == null){
+            return new Tuple<int, int>(-1,-1);
+        }
         //looping through the Parent nodes until we get to the start node
         Stack<MatrixNode> path = new Stack<MatrixNode>();
-
+        //return of null astar
         while (endNode.x != fromX || endNode.y != fromY)
         {
             path.Push(endNode);
             endNode = endNode.parent;
         }
         path.Push(endNode);
-
-        Console.WriteLine("The shortest path from  " +
-                          "(" + fromX + "," + fromY + ")  to " +
-                          "(" + toX + "," + toY + ")  is:  \n");
-
         while (path.Count > 0)
         {
             //remove the initial postion

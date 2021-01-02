@@ -6,19 +6,33 @@ public class MoveUnit : MonoBehaviour
 {
     private bool _isMoving = false;
     public void Move(Unit unit,Tile targetMoveTile){
+        if(unit.transform.parent.gameObject.GetComponent<Tile>() == targetMoveTile){
+            return;
+        }
         Astar astar = new Astar();
         System.Tuple<int, int> tilePosition = astar.UnitAStar((int)transform.parent.position.x,(int)transform.parent.position.z,
                                                             (int)targetMoveTile.transform.position.x,(int)targetMoveTile.transform.position.z);
-        Debug.Log( tilePosition.Item1+","+tilePosition.Item2);
-        StartCoroutine(moveToTile(gameObject.transform,
-                                GameCTL.Instance.GetGrid().GetTiles()[tilePosition.Item1,tilePosition.Item2].GetUnitPostion().position, 1.0f));
-        Debug.Log("coroutina termiou");
-        unit.transform.parent = GameCTL.Instance.GetGrid().GetTiles()[tilePosition.Item1,tilePosition.Item2].transform;
+        if(tilePosition.Item1 == -1){
+            StartCoroutine(moveToTile(gameObject.transform,
+                                      GameCTL.Instance.GetGrid().GetTiles()[(int)transform.parent.position.x+1,(int)transform.parent.position.z].GetUnitPostion().position, 1.0f));
+                                      unit.transform.parent = GameCTL.Instance.GetGrid().GetTiles()[(int)transform.parent.position.x+1,
+                                                                                                      (int)transform.parent.position.z].transform;
+        }else{
+            //freeling and update unit
+            unit.transform.parent.gameObject.GetComponent<Tile>().FreeUnit();
+            GameCTL.Instance.GetGrid().GetTiles()[tilePosition.Item1,tilePosition.Item2].SetUnit(unit);
+            GameCTL.Instance.GetGrid().GetTiles()[tilePosition.Item1,tilePosition.Item2].SetIsUsed(true);
+            StartCoroutine(moveToTile(gameObject.transform,
+                                      GameCTL.Instance.GetGrid().GetTiles()[tilePosition.Item1,tilePosition.Item2].GetUnitPostion().position, 1.0f));
+                                      unit.transform.parent = GameCTL.Instance.GetGrid().GetTiles()[tilePosition.Item1,
+                                                                                                      tilePosition.Item2].transform;
+        }
+        Debug.Log( tilePosition.Item1+","+tilePosition.Item2);  
     }
     void Update()
     {
         if(Input.GetKeyDown("s")){
-            Move(gameObject.GetComponent<Unit>(),GameCTL.Instance.GetGrid().GetTiles()[6,5]);
+            Move(gameObject.GetComponent<Unit>(),GameCTL.Instance.GetGrid().GetTiles()[14,5]);
         }
     }
     
@@ -45,5 +59,6 @@ public class MoveUnit : MonoBehaviour
             yield return null;
         }
         _isMoving = false;
+        Move(gameObject.GetComponent<Unit>(),GameCTL.Instance.GetGrid().GetTiles()[14,5]);
     }
 }

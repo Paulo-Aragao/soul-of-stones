@@ -64,5 +64,4 @@ public class Unit : MonoBehaviour
             _lifeBar.value = (int)_currentHp/_hpPorPercent;
         }
     }
-    
 }

@@ -40,7 +40,7 @@ public class GameCTL : MonoBehaviour
         _grid = GameObject.FindGameObjectWithTag("grid").GetComponent<GridCTL>();
         _listOfAllCards = new List<Card>();
         ReadData("/cards.tsv");
-        _grid.GetTiles()[5,5].SetIsUsed(true);
+        /*_grid.GetTiles()[5,5].SetIsUsed(true);
         _grid.GetTiles()[5,5].InstantiateUnit(Resources.Load("Prefabs/Units/"+0.ToString()) as GameObject,-1);
         _grid.GetTiles()[5,5].GetUnit().AcivingTheUnit(_listOfAllCards[0],-2);
         _grid.GetTiles()[5,5].GetUnit().GetSprite().color = Color.red;
@@ -48,7 +48,7 @@ public class GameCTL : MonoBehaviour
         _grid.GetTiles()[6,6].InstantiateUnit(Resources.Load("Prefabs/Units/"+0.ToString()) as GameObject,-1);
         _grid.GetTiles()[6,6].GetUnit().AcivingTheUnit(_listOfAllCards[0],-2);
         _grid.GetTiles()[6,6].GetUnit().GetSprite().color = Color.red;
-
+*/
         
         
     }
