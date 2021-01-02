@@ -17,7 +17,7 @@ public class ActionsUnit : MonoBehaviour
                                                                 (int)currentTile.transform.position.z + tile[1]];    
                 if(targetTile.GetIsUsed()){
                     if(targetTile.GetUnit().GetUser() != playerID){
-                        targetTile.GetUnit().TakeDamage(targetTile.GetUnit().GetCardRefecence().GetAtkDamage());
+                        targetTile.GetUnit().TakeDamage(currentTile.GetUnit().GetCardRefecence().GetAtkDamage());
                         if(vfxPrefab != null){
                             targetTile.SpawnVFX(vfxPrefab);
                         }  

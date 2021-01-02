@@ -24,7 +24,7 @@ public class GridCTL : MonoBehaviour
     }
     #endregion 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         _tiles = new Tile[_columns, _lines];
         transform.position = new Vector3(0,0,0);

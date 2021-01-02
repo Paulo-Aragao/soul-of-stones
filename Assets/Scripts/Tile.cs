@@ -29,6 +29,9 @@ public class Tile : MonoBehaviour
     public void SetIsUsed(bool isUsed){
         _isUsed = isUsed;
     }
+    public Transform GetUnitPostion(){
+        return _unitPosition;
+    }
     #endregion
     void Awake()
     {
@@ -43,6 +46,11 @@ public class Tile : MonoBehaviour
     public void InstantiateUnit(GameObject unit,int playerId){
         var unit_ = unit.GetComponent<Unit>();
         _unit = Instantiate(unit_, _unitPosition.position, _unitPosition.transform.rotation);
+        _unit.SetUser(playerId);
+        _unit.transform.parent = gameObject.transform;
+    }
+    public void UpdateUnit(GameObject unit,int playerId){
+        var unit_ = unit.GetComponent<Unit>();
         _unit.SetUser(playerId);
         _unit.transform.parent = gameObject.transform;
     }

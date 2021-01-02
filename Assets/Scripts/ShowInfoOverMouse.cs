@@ -9,7 +9,8 @@ public class ShowInfoOverMouse : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log(gameObject.GetComponent<CardUI>().GetName());
+        //TODO overMouse
+        //Debug.Log(gameObject.GetComponent<CardUI>().GetName());
         isOver = true;
     }
 

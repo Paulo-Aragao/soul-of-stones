@@ -1,4 +1,4 @@
 name	kingdom	card_type	cost_mana	unit_type	hp	atk_range	atk_damage	atk_speed	heal_power	heal_range	heal_speed	respawn_cooldown	move_speed	atk_vfx_id
 Aiyra	Esmeralda	unit	7	hero	50	-1,-1;-1,0;-1,1;0,-1;0,1;1,-1;1,0;1,1	3	2	0	-1,-1;-1,0;-1,1;0,-1;0,1;1,-1;1,0;1,1	0	15	0	0
 Wolf	Esmeralda	unit	1	beater	10	-1,-1;-1,0;-1,1;0,-1;0,1;1,-1;1,0;1,1	1	1	0	-1,-1;-1,0;-1,1;0,-1;0,1;1,-1;1,0;1,1	0	6	2	1
-Totem	Esmeralda	unit	3	healer	20	-1,-1;-1,0;-1,1;0,-1;0,1;1,-1;1,0;1,1	0	0	2	-1,-1;-1,0;-1,1;0,-1;0,1;1,-1;1,0;1,1	2	6	0	2
+Totem	Esmeralda	unit	3	healer	10	-1,-1;-1,0;-1,1;0,-1;0,1;1,-1;1,0;1,1	0	0	2	-1,-1;-1,0;-1,1;0,-1;0,1;1,-1;1,0;1,1	2	6	0	2
