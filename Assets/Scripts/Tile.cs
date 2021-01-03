@@ -8,7 +8,7 @@ public class Tile : MonoBehaviour
     private Renderer _rend;
     [SerializeField] private Transform _unitPosition;
     [SerializeField] private Unit _unit;
-    [SerializeField] private bool _isUsed;
+    [SerializeField] private bool _isUsed = false;
     [SerializeField] public Transform _positionVFX;
     #region GETS AND SETS  
     public int GetId(){

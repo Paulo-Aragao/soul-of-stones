@@ -49,6 +49,7 @@ public class Unit : MonoBehaviour
         }
     }
     public void Die(){
+        transform.parent.gameObject.GetComponent<Tile>().FreeUnit();
         transform.parent.gameObject.GetComponent<Tile>().SetIsUsed(false);
         //anim die
         //after drestroy the unity and unset the reference in the tile
@@ -59,7 +60,6 @@ public class Unit : MonoBehaviour
             _lifeBar.value = 100;
             //anim heal null
         }else{
-            Debug.Log("heling this unity");
             _currentHp += heal;
             _lifeBar.value = (int)_currentHp/_hpPorPercent;
         }

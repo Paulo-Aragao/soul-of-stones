@@ -20,10 +20,5 @@ public class UnitDefence : Unit
                                 Resources.Load("Prefabs/Vfxs/"+_cardRefence.GetAtkVfxId().ToString()) as GameObject);
         }
     }
-    void OnMouseDown() 
-    {
-        print("clicked");
-        //do something
     
-    }
 }

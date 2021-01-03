@@ -13,7 +13,7 @@ public class PlayerCTL : MonoBehaviour
     private List<Card> _gy;
     private CardsHandCTL _handCTL;
     private System.Random _random;
-    
+    private GameObject _panelUnit;
     //acess variables
     private Tile _targetTile;
     //status variables
@@ -33,6 +33,9 @@ public class PlayerCTL : MonoBehaviour
     }
     public void SetTargetTile(Tile tile){
         _targetTile = tile;
+    }
+    public GameObject GetPanelUnit(){
+        return _panelUnit;
     }
     #endregion 
     #region SINGLETON 
@@ -60,6 +63,8 @@ public class PlayerCTL : MonoBehaviour
         _random = new System.Random();
         _id = _random.Next(9999999);
         _handCTL = GameObject.FindGameObjectWithTag("handCTL").GetComponent<CardsHandCTL>();
+        _panelUnit = GameObject.FindGameObjectWithTag("panelUnit");
+        _panelUnit.SetActive(false);
         _deck = new List<Card>();
         _hand = new List<Card>();
         for (int i = 0; i < _deckSize; i++)
