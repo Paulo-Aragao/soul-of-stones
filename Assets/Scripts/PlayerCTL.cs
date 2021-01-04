@@ -14,6 +14,7 @@ public class PlayerCTL : MonoBehaviour
     private CardsHandCTL _handCTL;
     private System.Random _random;
     private GameObject _panelUnit;
+    [SerializeField] private Tower _mainTower;
     //acess variables
     private Tile _targetTile;
     //status variables
@@ -36,6 +37,9 @@ public class PlayerCTL : MonoBehaviour
     }
     public GameObject GetPanelUnit(){
         return _panelUnit;
+    }
+    public Tower GetMainTower(){
+        return _mainTower;
     }
     #endregion 
     #region SINGLETON 

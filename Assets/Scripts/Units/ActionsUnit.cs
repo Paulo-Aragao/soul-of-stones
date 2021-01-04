@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class ActionsUnit : MonoBehaviour
 {
+    //base attack main tower/castle
+    public void AttackingTheMainTower(int playerID,Tile currentTile,GameObject vfxPrefab = null){
+        if(playerID != PlayerCTL.Instance.GetId()){
+            PlayerCTL.Instance.GetMainTower().TakeDamage(currentTile.GetUnit().GetCardRefecence().GetAtkDamage());
+        }else{
+            EnemyIA.Instance.GetMainTower().TakeDamage(currentTile.GetUnit().GetCardRefecence().GetAtkDamage());
+        }
+    } 
     //base attack of all unity
     public void Attacking(int playerID,Tile currentTile,RangeTiles tilesInRange,GameObject vfxPrefab = null){
         foreach (var tile in tilesInRange.GetTileInRange())
@@ -22,9 +30,7 @@ public class ActionsUnit : MonoBehaviour
                             targetTile.SpawnVFX(vfxPrefab);
                         }  
                     }
-                };
-                //use the vfx 
-                
+                }
             }   
         }
     }
@@ -40,15 +46,15 @@ public class ActionsUnit : MonoBehaviour
                 Tile targetTile = GameCTL.Instance.GetGrid().GetTiles()[(int)currentTile.transform.position.x + tile[0],
                                                                 (int)currentTile.transform.position.z + tile[1]];    
                 if(targetTile.GetIsUsed()){
-                    if(targetTile.GetUnit().GetUser() == playerID){
+                    if(targetTile.GetUnit().GetUser() == playerID &&
+                      (targetTile.GetUnit().GetCardRefecence().GetUnityType() != "wall" && 
+                      targetTile.GetUnit().GetCardRefecence().GetUnityType() != "healer")){
                         targetTile.GetUnit().Heal(currentTile.GetUnit().GetCardRefecence().GetHealPower());
                         if(vfxPrefab != null){
                             currentTile.SpawnVFX(vfxPrefab);
                         }  
                     }
-                };
-                //use the vfx 
-                
+                }
             }   
         }
     }

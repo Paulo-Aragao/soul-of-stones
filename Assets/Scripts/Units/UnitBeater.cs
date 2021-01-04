@@ -6,6 +6,7 @@ public class UnitBeater : Unit
 {
     private bool _isMoving = false;
     private bool _isInCombat = false;
+    private bool _isInCombatWithTheTower = false;
 
     //cooldown atk
     private float _coolDownTime = 0f;
@@ -17,7 +18,11 @@ public class UnitBeater : Unit
     public void Move(){
         //freeling and update unit
         Vector3 targetTile = gameObject.transform.parent.transform.position + Vector3.right;
-        if(GameCTL.Instance.GetGrid().GetTiles()[(int)targetTile.x,(int)targetTile.z].GetIsUsed()){
+        //verification of end arena
+        if(targetTile.x >= GameCTL.Instance.GetGrid().GetColumns()){
+            _isInCombatWithTheTower = true;
+        }
+        else if(GameCTL.Instance.GetGrid().GetTiles()[(int)targetTile.x,(int)targetTile.z].GetIsUsed()){
             _isInCombat = true;
         }else{
             _isInCombat = false;
@@ -35,8 +40,11 @@ public class UnitBeater : Unit
             timer = Time.time + _coolDownTime;
             _actions.Attacking(_user,transform.parent.gameObject.GetComponent<Tile>(),_cardRefence.GetAtkRange(),
                                 Resources.Load("Prefabs/Vfxs/"+_cardRefence.GetAtkVfxId().ToString()) as GameObject);
-           
             Move();
+        }else if(_isInCombatWithTheTower && Time.time > timer){
+            timer = Time.time + _coolDownTime;
+            _actions.AttackingTheMainTower(_user,transform.parent.gameObject.GetComponent<Tile>(),
+                                Resources.Load("Prefabs/Vfxs/"+_cardRefence.GetAtkVfxId().ToString()) as GameObject);
         }
     }
     IEnumerator moveToTile(Transform fromPosition, Vector3 toPosition, float duration)

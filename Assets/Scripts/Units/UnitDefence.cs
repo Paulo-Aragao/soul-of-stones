@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class UnitDefence : Unit
 {
+    [SerializeField] private bool _isWall;
     private float timer;
     private float coolDownAtkBase;
     private void OnEnable() {
@@ -14,7 +15,7 @@ public class UnitDefence : Unit
     void Update()
     {
         timer += Time.deltaTime;
-        if(timer > coolDownAtkBase){
+        if(timer > coolDownAtkBase && !_isWall){
             coolDownAtkBase += _cardRefence.GetAtkSpeed();
             _actions.Attacking(_user,transform.parent.gameObject.GetComponent<Tile>(),_cardRefence.GetAtkRange(),
                                 Resources.Load("Prefabs/Vfxs/"+_cardRefence.GetAtkVfxId().ToString()) as GameObject);

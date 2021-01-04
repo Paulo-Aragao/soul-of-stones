@@ -32,27 +32,16 @@ public class GameCTL : MonoBehaviour
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
+        _random = new System.Random();
+        _grid = GameObject.FindGameObjectWithTag("grid").GetComponent<GridCTL>();
+        _listOfAllCards = new List<Card>();
+        ReadData("/cards.tsv");  
     }
     #endregion
     void Start()
     {
-        _random = new System.Random();
-        _grid = GameObject.FindGameObjectWithTag("grid").GetComponent<GridCTL>();
-        _listOfAllCards = new List<Card>();
-        ReadData("/cards.tsv");
-        _grid.GetTiles()[5,5].SetIsUsed(true);
-        _grid.GetTiles()[5,5].InstantiateUnit(Resources.Load("Prefabs/Units/"+0.ToString()) as GameObject,-1);
-        _grid.GetTiles()[5,5].GetUnit().AcivingTheUnit(_listOfAllCards[0],-2);
-        _grid.GetTiles()[5,5].GetUnit().GetSprite().color = Color.red;
-        _grid.GetTiles()[11,5].SetIsUsed(true);
-        _grid.GetTiles()[11,5].InstantiateUnit(Resources.Load("Prefabs/Units/"+0.ToString()) as GameObject,-1);
-        _grid.GetTiles()[11,5].GetUnit().AcivingTheUnit(_listOfAllCards[0],-2);
-        _grid.GetTiles()[11,5].GetUnit().GetSprite().color = Color.red;
-
         
-        
-    }
-     
+    } 
     public Card PickACardInListOfAllCards(bool randomCard, int id = -1){
         if(randomCard){
             int index = _random.Next(_listOfAllCards.Count);
