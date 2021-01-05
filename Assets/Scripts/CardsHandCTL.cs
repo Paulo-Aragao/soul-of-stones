@@ -24,6 +24,7 @@ public class CardsHandCTL : MonoBehaviour
                 _cardsSpawners[i].SetName(card.GetName());
                 _cardsSpawners[i].SetCardId(card.GetId());
                 _cardsSpawners[i].SetImageCard(card.GetId());
+                _cardsSpawners[i].SetManaCost(card.GetId());
                 break;
             }
         }

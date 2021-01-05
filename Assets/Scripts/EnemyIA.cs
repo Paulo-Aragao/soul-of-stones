@@ -51,6 +51,8 @@ public class EnemyIA : MonoBehaviour
         _deck = new List<Card>();
         _hand = new List<Card>();
         GameCTL.Instance.ReadDeck("/deck.txt",_deck);
+        PlotTowers(12,6,4);
+        PlotTowers(12,0,4);
         for (int i = 0; i < 5; i++)
         {
             DrawCard();
@@ -60,14 +62,31 @@ public class EnemyIA : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //ia algoritmo
+        if(_hand[0].GetUnityType() == "beater"){
+            int maxHp = 0;
+            int sum = 0;
+            for (int i = 0; i < GameCTL.Instance.GetGrid().GetLines(); i++)
+            {
+                if(sum >= maxHp){
+                    maxHp = sum;
+                }
+                for (int j = 0; j < GameCTL.Instance.GetGrid().GetColumns(); j++)
+                {
+                    sum += GameCTL.Instance.GetGrid().GetTiles()[i,j].GetUnit().GetCardRefecence().GetHp();
+                }
+            }
+        }
     }
-    
+    public void PlotTowers(int x,int y, int cardId){
+        GameCTL.Instance.GetGrid().GetTiles()[x,y].SetIsUsed(true);
+        GameCTL.Instance.GetGrid().GetTiles()[x,y].InstantiateUnit(Resources.Load("Prefabs/Units/"+cardId.ToString()) as GameObject,-1);
+        GameCTL.Instance.GetGrid().GetTiles()[x,y].GetUnit().AcivingTheUnit(GameCTL.Instance.GetListOfAllCards()[cardId],-1);
+    }
     public void DrawCard(){
         if(_hand.Count < 5 && _deck.Count > 0){
             int index = _random.Next(0,_deck.Count);
             _hand.Add(_deck[index]);
-            _deck.RemoveAt(index);
         }else{
             Debug.Log("impossible draw,hand full");
         }

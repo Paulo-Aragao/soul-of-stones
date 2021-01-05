@@ -97,8 +97,6 @@ public class PlayerCTL : MonoBehaviour
             _deck.RemoveAt(index);
         }
         PlotTowers(2,6,4);
-        PlotTowers(2,6,4);
-        PlotTowers(2,0,4);
         PlotTowers(2,0,4);
         Invoke("DrawCard",5);
         Invoke("DrawMana",3);
