@@ -87,21 +87,28 @@ public class PlayerCTL : MonoBehaviour
         _deck = new List<Card>();
         _hand = new List<Card>();
         GameCTL.Instance.ReadDeck("/deck.txt",_deck);
+        _deckSize = _deck.Count;
         for (int i = 0; i < 5; i++)
         {
-            DrawCard();
+            int index = _random.Next(0,_deck.Count);
+            _hand.Add(_deck[index]);
+            _handCTL.AddCardInHand(_deck[index]);
+            _deck.RemoveAt(index);
         }
         PlotTowers(2,6,4);
         PlotTowers(2,6,4);
         PlotTowers(2,0,4);
         PlotTowers(2,0,4);
+        Invoke("DrawCard",5);
+        Invoke("DrawMana",3);
     }
     void Update()
     {
-        if (Input.GetKeyDown("a"))
-        {
-            DrawCard();
-        }
+        
+    }
+    public void DrawMana(){
+        SetMana(_mana+1);
+        Invoke("DrawMana",3);
     }
     public void PlotTowers(int x,int y, int cardId){
         GameCTL.Instance.GetGrid().GetTiles()[x,y].SetIsUsed(true);
@@ -109,14 +116,14 @@ public class PlayerCTL : MonoBehaviour
         GameCTL.Instance.GetGrid().GetTiles()[x,y].GetUnit().AcivingTheUnit(GameCTL.Instance.GetListOfAllCards()[cardId],_id);
     }
     public void DrawCard(){
-        if(_handCTL.ExistFreeSpaceCard() && _deck.Count > 0){
+        if(_handCTL.ExistFreeSpaceCard()){
             int index = _random.Next(0,_deck.Count);
             _hand.Add(_deck[index]);
             _handCTL.AddCardInHand(_deck[index]);
-            _deck.RemoveAt(index);
         }else{
             Debug.Log("impossible draw,hand full");
         }
+        Invoke("DrawCard",5);
     } 
     
 }
