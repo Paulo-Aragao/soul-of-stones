@@ -84,7 +84,7 @@ public class Tile : MonoBehaviour
     // ...the red fades out to cyan as the mouse is held over...
     void OnMouseOver()
     {
-        _rend.material.color -= new Color(0.1F, 0, 0) * Time.deltaTime;
+        //_rend.material.color -= new Color(0.1F, 0, 0) * Time.deltaTime;
         if(PlayerCTL.Instance.GetDragingCard()){
             PlayerCTL.Instance.GetEventChangeColorTiles().Invoke();
             if(_isUsed || transform.position.x >= 5){

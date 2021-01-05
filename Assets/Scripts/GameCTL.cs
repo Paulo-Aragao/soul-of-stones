@@ -6,6 +6,7 @@ public class GameCTL : MonoBehaviour
 {
     private GridCTL _grid;
     private System.Random _random;
+    private AlertMsn _alertMsn;
     //cards de teste
     [SerializeField] private List<Card> _listOfAllCards;
     public List<Card> GetListOfAllCards(){
@@ -36,11 +37,11 @@ public class GameCTL : MonoBehaviour
         _grid = GameObject.FindGameObjectWithTag("grid").GetComponent<GridCTL>();
         _listOfAllCards = new List<Card>();
         ReadData("/cards.tsv");  
+        _alertMsn = GameObject.FindGameObjectWithTag("alertTxt").GetComponent<AlertMsn>();
     }
     #endregion
     void Start()
     {
-        
     } 
     public Card PickACardInListOfAllCards(bool randomCard, int id = -1){
         if(randomCard){
@@ -121,28 +122,35 @@ public class GameCTL : MonoBehaviour
     public void UseCard(CardUI card){
         PlayerCTL.Instance.GetEventChangeColorTiles().Invoke();
         if(PlayerCTL.Instance.GetTargetTile() != null){
-            switch (_listOfAllCards[card.GetCardId()].GetCardType())
-            {
-                case "unit":
-                    if(!PlayerCTL.Instance.GetTargetTile().GetIsUsed()){
-                        PlayerCTL.Instance.GetTargetTile().SetIsUsed(true);
-                        try
-                        {
-                            PlayerCTL.Instance.GetTargetTile().InstantiateUnit(Resources.Load("Prefabs/Units/"+card.GetCardId()) as GameObject,
-                                                                                PlayerCTL.Instance.GetId());
+            if(PlayerCTL.Instance.GetMana() >= _listOfAllCards[card.GetCardId()].GetManaCost()){
+                PlayerCTL.Instance.SetMana(PlayerCTL.Instance.GetMana() - _listOfAllCards[card.GetCardId()].GetManaCost());
+                switch (_listOfAllCards[card.GetCardId()].GetCardType())
+                {
+                    case "unit":
+                        if(!PlayerCTL.Instance.GetTargetTile().GetIsUsed()){
+                            PlayerCTL.Instance.GetTargetTile().SetIsUsed(true);
+                            try
+                            {
+                                PlayerCTL.Instance.GetTargetTile().InstantiateUnit(Resources.Load("Prefabs/Units/"+card.GetCardId()) as GameObject,
+                                                                                    PlayerCTL.Instance.GetId());
+                            }
+                            catch (System.Exception e)
+                            {
+                                Debug.Log(e);
+                                throw;
+                            }
+                            PlayerCTL.Instance.GetTargetTile().GetUnit().AcivingTheUnit(_listOfAllCards[card.GetCardId()],PlayerCTL.Instance.GetId());
+                            card.gameObject.SetActive(false); 
                         }
-                        catch (System.Exception e)
-                        {
-                            Debug.Log(e);
-                            throw;
-                        }
-                        PlayerCTL.Instance.GetTargetTile().GetUnit().AcivingTheUnit(_listOfAllCards[card.GetCardId()],PlayerCTL.Instance.GetId());
-                        card.gameObject.SetActive(false); 
-                    }
-                    break;
-                default:
-                    break;
+                        break;
+                    default:
+                        break;
+                }
+            }else{
+                _alertMsn.SetAlertText("Insufficient mana");
             }
+        }else{
+                _alertMsn.SetAlertText("Invalid tile");
         }
     }
     public void EndGame(int winnerPlayerId){

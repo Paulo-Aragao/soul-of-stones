@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.IO;
+using UnityEngine.UI;
 using UnityEngine.Events;
 public class PlayerCTL : MonoBehaviour
 {
     private int _id;
     private string _name;
+    [SerializeField] private int _mana = 10;
     [SerializeField] private int _deckSize = 30;
     private List<Card> _deck;
     private List<Card> _hand;
@@ -16,6 +17,7 @@ public class PlayerCTL : MonoBehaviour
     private GameObject _panelUnit;
     private UnityEvent _eventChangeColorTiles;
     [SerializeField] private Castle _mainTower;
+    [SerializeField]private Slider _manaBar;
     //acess variables
     private Tile _targetTile;
     //status variables
@@ -45,6 +47,13 @@ public class PlayerCTL : MonoBehaviour
     public UnityEvent GetEventChangeColorTiles(){
         return _eventChangeColorTiles;
     }
+    public int GetMana(){
+        return _mana;
+    }
+    public void SetMana(int mana){
+        _mana = mana;
+        _manaBar.value = 10 - mana;
+    }
     #endregion 
     #region SINGLETON 
     private static PlayerCTL _instance;
@@ -69,6 +78,7 @@ public class PlayerCTL : MonoBehaviour
     
     void Start()
     {
+        SetMana(_mana);
         _random = new System.Random();
         _id = _random.Next(9999999);
         _handCTL = GameObject.FindGameObjectWithTag("handCTL").GetComponent<CardsHandCTL>();
@@ -86,7 +96,6 @@ public class PlayerCTL : MonoBehaviour
         PlotTowers(2,0,4);
         PlotTowers(2,0,4);
     }
-
     void Update()
     {
         if (Input.GetKeyDown("a"))
