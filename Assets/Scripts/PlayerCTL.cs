@@ -18,6 +18,7 @@ public class PlayerCTL : MonoBehaviour
     private UnityEvent _eventChangeColorTiles;
     [SerializeField] private Castle _mainTower;
     [SerializeField]private Slider _manaBar;
+    
     //acess variables
     private Tile _targetTile;
     //status variables
@@ -107,7 +108,9 @@ public class PlayerCTL : MonoBehaviour
         
     }
     public void DrawMana(){
-        SetMana(_mana+1);
+        if(_mana < 10){
+            SetMana(_mana+1);
+        }
         Invoke("DrawMana",3);
     }
     public void PlotTowers(int x,int y, int cardId){
@@ -120,8 +123,6 @@ public class PlayerCTL : MonoBehaviour
             int index = _random.Next(0,_deck.Count);
             _hand.Add(_deck[index]);
             _handCTL.AddCardInHand(_deck[index]);
-        }else{
-            Debug.Log("impossible draw,hand full");
         }
         Invoke("DrawCard",5);
     } 

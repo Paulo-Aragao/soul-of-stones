@@ -126,7 +126,7 @@ public class GameCTL : MonoBehaviour
                 PlayerCTL.Instance.SetMana(PlayerCTL.Instance.GetMana() - _listOfAllCards[card.GetCardId()].GetManaCost());
                 switch (_listOfAllCards[card.GetCardId()].GetCardType())
                 {
-                    case "unit":
+                    case "unity":
                         if(!PlayerCTL.Instance.GetTargetTile().GetIsUsed()){
                             PlayerCTL.Instance.GetTargetTile().SetIsUsed(true);
                             try
@@ -150,7 +150,7 @@ public class GameCTL : MonoBehaviour
                 _alertMsn.SetAlertText("Insufficient mana");
             }
         }else{
-                _alertMsn.SetAlertText("Invalid tile");
+                _alertMsn.SetAlertText("Invalid location");
         }
     }
     public void EndGame(int winnerPlayerId){

@@ -7,6 +7,5 @@ public class MenuActions : MonoBehaviour
     void OnMouseDown() 
     {
         PlayerCTL.Instance.GetPanelUnit().SetActive(true);
-    
     }
 }
