@@ -2,19 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
-
+using UnityEngine.Events;
 public class PlayerCTL : MonoBehaviour
 {
     private int _id;
     private string _name;
-    private int _deckSize = 30;
+    [SerializeField] private int _deckSize = 30;
     private List<Card> _deck;
     private List<Card> _hand;
     private List<Card> _gy;
     private CardsHandCTL _handCTL;
     private System.Random _random;
     private GameObject _panelUnit;
-    [SerializeField] private Tower _mainTower;
+    private UnityEvent _eventChangeColorTiles;
+    [SerializeField] private Castle _mainTower;
     //acess variables
     private Tile _targetTile;
     //status variables
@@ -38,8 +39,11 @@ public class PlayerCTL : MonoBehaviour
     public GameObject GetPanelUnit(){
         return _panelUnit;
     }
-    public Tower GetMainTower(){
+    public Castle GetMainTower(){
         return _mainTower;
+    }
+    public UnityEvent GetEventChangeColorTiles(){
+        return _eventChangeColorTiles;
     }
     #endregion 
     #region SINGLETON 
@@ -58,6 +62,7 @@ public class PlayerCTL : MonoBehaviour
     }
     void Awake()
     {
+        _eventChangeColorTiles = new UnityEvent();
         DontDestroyOnLoad(gameObject);
     }
     #endregion
@@ -71,27 +76,28 @@ public class PlayerCTL : MonoBehaviour
         _panelUnit.SetActive(false);
         _deck = new List<Card>();
         _hand = new List<Card>();
-        for (int i = 0; i < _deckSize; i++)
-        {
-            Card card = GameCTL.Instance.PickACardInListOfAllCards(true);
-            _deck.Add(new Card(card.GetId(),card.GetName(),card.GetKingdom(),card.GetCardType(),card.GetRespawnCooldown(),
-                            card.GetManaCost(),card.GetUnityType(),card.GetHp(),card.GetAtkRange(),card.GetAtkDamage(),
-                            card.GetAtkSpeed(),card.GetHealPower(),card.GetHealRange(),card.GetHealSpeed(),card.GetMoveSpeed(),
-                            card.GetAtkVfxId()));
-        } 
+        GameCTL.Instance.ReadDeck("/deck.txt",_deck);
         for (int i = 0; i < 5; i++)
         {
             DrawCard();
-            
         }
-          
+        PlotTowers(2,6,4);
+        PlotTowers(2,6,4);
+        PlotTowers(2,0,4);
+        PlotTowers(2,0,4);
     }
+
     void Update()
     {
         if (Input.GetKeyDown("a"))
         {
             DrawCard();
         }
+    }
+    public void PlotTowers(int x,int y, int cardId){
+        GameCTL.Instance.GetGrid().GetTiles()[x,y].SetIsUsed(true);
+        GameCTL.Instance.GetGrid().GetTiles()[x,y].InstantiateUnit(Resources.Load("Prefabs/Units/"+cardId.ToString()) as GameObject,_id);
+        GameCTL.Instance.GetGrid().GetTiles()[x,y].GetUnit().AcivingTheUnit(GameCTL.Instance.GetListOfAllCards()[cardId],_id);
     }
     public void DrawCard(){
         if(_handCTL.ExistFreeSpaceCard() && _deck.Count > 0){
@@ -103,5 +109,5 @@ public class PlayerCTL : MonoBehaviour
             Debug.Log("impossible draw,hand full");
         }
     } 
-
+    
 }

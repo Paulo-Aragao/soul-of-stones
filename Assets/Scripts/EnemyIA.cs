@@ -11,10 +11,12 @@ public class EnemyIA : MonoBehaviour
     private List<Card> _hand;
     private List<Card> _gy;
     private GameObject _panelUnit;
-    [SerializeField] private Tower _mainTower;
+    [SerializeField] private Castle _mainTower;
+
+   
     private System.Random _random;
 
-    public Tower GetMainTower(){
+    public Castle GetMainTower(){
         return _mainTower;
     }
     #region SINGLETON 
@@ -40,24 +42,15 @@ public class EnemyIA : MonoBehaviour
     void Start()
     {
         GameCTL.Instance.GetGrid().GetTiles()[5,5].SetIsUsed(true);
-        GameCTL.Instance.GetGrid().GetTiles()[5,5].InstantiateUnit(Resources.Load("Prefabs/Units/"+0.ToString()) as GameObject,-1);
-        GameCTL.Instance.GetGrid().GetTiles()[5,5].GetUnit().AcivingTheUnit(GameCTL.Instance.GetListOfAllCards()[0],-2);
-        GameCTL.Instance.GetGrid().GetTiles()[5,5].GetUnit().GetSprite().color = Color.red;
+        GameCTL.Instance.GetGrid().GetTiles()[5,5].InstantiateUnit(Resources.Load("Prefabs/Units/"+1.ToString()) as GameObject,-1);
+        GameCTL.Instance.GetGrid().GetTiles()[5,5].GetUnit().AcivingTheUnit(GameCTL.Instance.GetListOfAllCards()[1],-2);
         GameCTL.Instance.GetGrid().GetTiles()[11,5].SetIsUsed(true);
-        GameCTL.Instance.GetGrid().GetTiles()[11,5].InstantiateUnit(Resources.Load("Prefabs/Units/"+0.ToString()) as GameObject,-1);
-        GameCTL.Instance.GetGrid().GetTiles()[11,5].GetUnit().AcivingTheUnit(GameCTL.Instance.GetListOfAllCards()[0],-2);
-        GameCTL.Instance.GetGrid().GetTiles()[11,5].GetUnit().GetSprite().color = Color.red;
+        GameCTL.Instance.GetGrid().GetTiles()[11,5].InstantiateUnit(Resources.Load("Prefabs/Units/"+1.ToString()) as GameObject,-1);
+        GameCTL.Instance.GetGrid().GetTiles()[11,5].GetUnit().AcivingTheUnit(GameCTL.Instance.GetListOfAllCards()[1],-2);
         _random = new System.Random();
         _deck = new List<Card>();
         _hand = new List<Card>();
-        for (int i = 0; i < _deckSize; i++)
-        {
-            Card card = GameCTL.Instance.PickACardInListOfAllCards(true);
-            _deck.Add(new Card(card.GetId(),card.GetName(),card.GetKingdom(),card.GetCardType(),card.GetRespawnCooldown(),
-                            card.GetManaCost(),card.GetUnityType(),card.GetHp(),card.GetAtkRange(),card.GetAtkDamage(),
-                            card.GetAtkSpeed(),card.GetHealPower(),card.GetHealRange(),card.GetHealSpeed(),card.GetMoveSpeed(),
-                            card.GetAtkVfxId()));
-        } 
+        GameCTL.Instance.ReadDeck("/deck.txt",_deck);
         for (int i = 0; i < 5; i++)
         {
             DrawCard();
@@ -69,7 +62,7 @@ public class EnemyIA : MonoBehaviour
     {
         
     }
-
+    
     public void DrawCard(){
         if(_hand.Count < 5 && _deck.Count > 0){
             int index = _random.Next(0,_deck.Count);

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Events;
 public class Tile : MonoBehaviour
 {
     private int _id;
@@ -10,6 +10,7 @@ public class Tile : MonoBehaviour
     [SerializeField] private Unit _unit;
     [SerializeField] private bool _isUsed = false;
     [SerializeField] public Transform _positionVFX;
+    
     #region GETS AND SETS  
     public int GetId(){
         return _id;
@@ -38,6 +39,21 @@ public class Tile : MonoBehaviour
         _isUsed = false;
         _rend = GetComponent<Renderer>();
     }
+    void Start()
+    {
+        PlayerCTL.Instance.GetEventChangeColorTiles().AddListener(ChangeColor);
+    }
+    public void ChangeColor(){
+        if(PlayerCTL.Instance.GetDragingCard() && transform.position.x < 5){
+            if(_isUsed){
+                _rend.material.color = Color.red;
+            }else{
+                _rend.material.color = Color.green;
+            }
+        }else{
+            _rend.material.color = Color.white;
+        }
+    }
     public void FreeUnit(){
         _unit = null;
         _isUsed = false;
@@ -61,29 +77,27 @@ public class Tile : MonoBehaviour
     // The mesh goes red when the mouse is over it...
     void OnMouseEnter()
     {
-        if(PlayerCTL.Instance.GetDragingCard()){
+        if(PlayerCTL.Instance.GetDragingCard() && transform.position.x < 5){
             PlayerCTL.Instance.SetTargetTile(this);
-            if(_unit == null){
-                _rend.material.color = Color.blue;
-            }else{
-                _rend.material.color = Color.red;
-            }
         }
     }
-
     // ...the red fades out to cyan as the mouse is held over...
     void OnMouseOver()
     {
         _rend.material.color -= new Color(0.1F, 0, 0) * Time.deltaTime;
-        if(!PlayerCTL.Instance.GetDragingCard()){
-            _rend.material.color = Color.white;
+        if(PlayerCTL.Instance.GetDragingCard()){
+            PlayerCTL.Instance.GetEventChangeColorTiles().Invoke();
+            if(_isUsed || transform.position.x >= 5){
+                _rend.material.color = Color.red;
+            }else{
+                _rend.material.color = Color.blue;
+            }
         }
     }
-
     // ...and the mesh finally turns white when the mouse moves away.
     void OnMouseExit()
     {
         PlayerCTL.Instance.SetTargetTile(null);
-        _rend.material.color = Color.white;
+        //_rend.material.color = Color.white;
     }
 }

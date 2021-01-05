@@ -99,8 +99,27 @@ public class GameCTL : MonoBehaviour
             }
         }
     }
+    public void ReadDeck(string filePath,List<Card> deck){
+        using(var reader = new StreamReader(Application.streamingAssetsPath+filePath))
+        {
+            while (!reader.EndOfStream)
+            {
+                var line = reader.ReadLine();
+                var values = line.Split(',');
+                foreach (var cardId in values)
+                {
+                    Card card = GameCTL.Instance.PickACardInListOfAllCards(false,int.Parse(cardId));
+                    deck.Add(new Card(card.GetId(),card.GetName(),card.GetKingdom(),card.GetCardType(),card.GetRespawnCooldown(),
+                                       card.GetManaCost(),card.GetUnityType(),card.GetHp(),card.GetAtkRange(),card.GetAtkDamage(),
+                                       card.GetAtkSpeed(),card.GetHealPower(),card.GetHealRange(),card.GetHealSpeed(),card.GetMoveSpeed(),
+                                       card.GetAtkVfxId()));
+                }
+            }
+        }
+    }
     //execute action card
     public void UseCard(CardUI card){
+        PlayerCTL.Instance.GetEventChangeColorTiles().Invoke();
         if(PlayerCTL.Instance.GetTargetTile() != null){
             switch (_listOfAllCards[card.GetCardId()].GetCardType())
             {
@@ -125,5 +144,13 @@ public class GameCTL : MonoBehaviour
                     break;
             }
         }
+    }
+    public void EndGame(int winnerPlayerId){
+        if(PlayerCTL.Instance.GetId() != winnerPlayerId){
+            Debug.Log("player is winner");
+        }else{
+            Debug.Log("IA is win");
+        }
+        
     }
 }

@@ -48,7 +48,9 @@ public class ActionsUnit : MonoBehaviour
                 if(targetTile.GetIsUsed()){
                     if(targetTile.GetUnit().GetUser() == playerID &&
                       (targetTile.GetUnit().GetCardRefecence().GetUnityType() != "wall" && 
-                      targetTile.GetUnit().GetCardRefecence().GetUnityType() != "healer")){
+                      targetTile.GetUnit().GetCardRefecence().GetUnityType() != "healer" &&
+                      targetTile.GetUnit().GetCardRefecence().GetUnityType() != "tower")
+                      ){
                         targetTile.GetUnit().Heal(currentTile.GetUnit().GetCardRefecence().GetHealPower());
                         if(vfxPrefab != null){
                             currentTile.SpawnVFX(vfxPrefab);
