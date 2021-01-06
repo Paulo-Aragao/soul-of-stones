@@ -10,15 +10,16 @@ public class Unit : MonoBehaviour
     [SerializeField] protected SpriteRenderer _sprite;
     [SerializeField] protected Animator _anim;
     [SerializeField] protected Slider _lifeBar;
+    [SerializeField] protected Image _lifeBarColor;
     protected float _hpPorPercent;//quanto hp equivale a 1% da lifebar
     protected int _currentHp;
-    protected int _user;//p1 or p2/IA
+    protected int _playerId;//p1 or p2/IA
     
-    public int GetUser(){
-        return _user;
+    public int GetPlayerId(){
+        return _playerId;
     }
-    public void SetUser(int playerId){
-        _user = playerId;
+    public void SetPlayerId(int playerId){
+        _playerId = playerId;
     }
     public Card GetCardRefecence(){
         return _cardRefence;
@@ -27,7 +28,12 @@ public class Unit : MonoBehaviour
         return _sprite;
     }
     public void AcivingTheUnit(Card card,int userId){
-        _user = userId;
+        if(userId != PlayerCTL.Instance.GetId()){
+            _lifeBarColor.color = Color.red;
+        }else{
+            _lifeBarColor.color = Color.green;
+        }
+        _playerId = userId;
         _cardRefence = card;
         gameObject.SetActive(true);
         //TODO: anim de inicio e efeito especial

@@ -38,6 +38,9 @@ public class ShowInfoOverMouse : MonoBehaviour, IPointerEnterHandler, IPointerEx
                         text = GameCTL.Instance.GetListOfAllCards()[gameObject.GetComponent<CardUI>().GetCardId()].GetName() + "\n\n" +
                         "Health Points : "+GameCTL.Instance.GetListOfAllCards()[gameObject.GetComponent<CardUI>().GetCardId()].GetHp() + '\n'; 
                         break;
+                    case "item":
+                        text = GameCTL.Instance.GetListOfAllCards()[gameObject.GetComponent<CardUI>().GetCardId()].GetName() + "\n\n"; 
+                        break;
                     default:
                         break;
                 }

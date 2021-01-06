@@ -6,6 +6,6 @@ public class MenuActions : MonoBehaviour
 {
     void OnMouseDown() 
     {
-        PlayerCTL.Instance.GetPanelUnit().SetActive(true);
+        PlayerCTL.Instance.GetPanelUnit().GetComponent<UnitPanelGUI>().Active(true,gameObject.transform.parent.gameObject.GetComponent<Unit>());
     }
 }

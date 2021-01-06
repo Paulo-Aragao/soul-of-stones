@@ -8,7 +8,7 @@ public class Card : MonoBehaviour
     [SerializeField] protected string _kingdom;
     [SerializeField] protected string _cardType;//unit, global
     [SerializeField] protected int _manaCost;
-    [SerializeField] protected int _respawnCooldown;
+    [SerializeField] protected int _respawnArea;
     [SerializeField] protected string _sprite;
     [SerializeField] private string _unityType;//tank, hero, range, batedor, desbrador
     [SerializeField] private int _hp;
@@ -57,11 +57,11 @@ public class Card : MonoBehaviour
     public void SetManaCost(int manaCost){
         _manaCost = manaCost;
     }
-    public int GetRespawnCooldown(){
-        return _respawnCooldown;
+    public int GetRespawnArea(){
+        return _respawnArea;
     }
-    public void SetRespawnCooldown(int respawnCooldown){
-        _respawnCooldown = respawnCooldown;
+    public void SetRespawnArea(int respawnCooldown){
+        _respawnArea = respawnCooldown;
     }
     public RangeTiles GetAtkRange(){
         return _atkRange;
@@ -121,7 +121,7 @@ public class Card : MonoBehaviour
     // Start is called before the first frame update
     
     public Card(int id,string name,string kingdom ,string cardType,
-                    int respawnCooldown,int manaCost,string unityType,
+                    int respawnArea,int manaCost,string unityType,
                     int hp, RangeTiles atkRange,int atkDamage,int atkSpeed,
                     int healPower,RangeTiles healRange,int healSpeed,
                     int moveSpeed,int atkVfxId){
@@ -129,7 +129,7 @@ public class Card : MonoBehaviour
         _name = name;
         _kingdom = kingdom;
         _cardType = cardType;
-        _respawnCooldown = respawnCooldown;
+        _respawnArea = respawnArea;
         _manaCost = manaCost;
         _unityType = unityType;
         _hp = hp;

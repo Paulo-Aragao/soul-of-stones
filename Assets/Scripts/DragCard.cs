@@ -23,6 +23,7 @@ public class DragCard : MonoBehaviour ,IBeginDragHandler, IDragHandler, IEndDrag
     public void OnBeginDrag(PointerEventData eventData)
     {
         PlayerCTL.Instance.SetDragingCard(true);
+        PlayerCTL.Instance.SetDragingId(gameObject.GetComponent<CardUI>().GetCardId());
         transform.localScale = transform.localScale * 0.5f;
     }
     public void OnDrag(PointerEventData eventData){
@@ -30,6 +31,7 @@ public class DragCard : MonoBehaviour ,IBeginDragHandler, IDragHandler, IEndDrag
     }
     public void OnEndDrag(PointerEventData eventData){
         PlayerCTL.Instance.SetDragingCard(false);
+        PlayerCTL.Instance.SetDragingId(-1);
         transform.localPosition = _originalPosition;
         transform.localScale = _originalScale;
         GameCTL.Instance.UseCard(gameObject.GetComponent<CardUI>());

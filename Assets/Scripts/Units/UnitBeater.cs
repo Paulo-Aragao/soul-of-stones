@@ -17,7 +17,7 @@ public class UnitBeater : Unit
     }
     public void Move(){
         Vector3 targetTile;
-        if(_user == PlayerCTL.Instance.GetId()){
+        if(_playerId == PlayerCTL.Instance.GetId()){
             targetTile = gameObject.transform.parent.transform.position + Vector3.right;
         }else{
             targetTile = gameObject.transform.parent.transform.position + Vector3.left;
@@ -43,12 +43,12 @@ public class UnitBeater : Unit
     {
         if(_isInCombat && Time.time > timer){
             timer = Time.time + _coolDownTime;
-            _actions.Attacking(_user,transform.parent.gameObject.GetComponent<Tile>(),_cardRefence.GetAtkRange(),
+            _actions.Attacking(_playerId,transform.parent.gameObject.GetComponent<Tile>(),_cardRefence.GetAtkRange(),
                                 Resources.Load("Prefabs/Vfxs/"+_cardRefence.GetAtkVfxId().ToString()) as GameObject);
             Move();
         }else if(_isInCombatWithTheCastle && Time.time > timer){
             timer = Time.time + _coolDownTime;
-            _actions.AttackingTheMainTower(_user,transform.parent.gameObject.GetComponent<Tile>(),
+            _actions.AttackingTheMainTower(_playerId,transform.parent.gameObject.GetComponent<Tile>(),
                                 Resources.Load("Prefabs/Vfxs/"+_cardRefence.GetAtkVfxId().ToString()) as GameObject);
         }
     }

@@ -16,7 +16,7 @@ public class UnitHealer : Unit
         timer += Time.deltaTime;
         if(timer > coolDownHealBase){
             coolDownHealBase += _cardRefence.GetHealSpeed();
-            _actions.Healing(_user,transform.parent.gameObject.GetComponent<Tile>(),_cardRefence.GetHealRange(),
+            _actions.Healing(_playerId,transform.parent.gameObject.GetComponent<Tile>(),_cardRefence.GetHealRange(),
                                 Resources.Load("Prefabs/Vfxs/"+_cardRefence.GetAtkVfxId().ToString()) as GameObject);
         }
     }

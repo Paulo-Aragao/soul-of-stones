@@ -19,7 +19,7 @@ public class UnitDefence : Unit
         timer += Time.deltaTime;
         if(timer > coolDownAtkBase && !_isWall){
             coolDownAtkBase += _cardRefence.GetAtkSpeed();
-            _actions.Attacking(_user,transform.parent.gameObject.GetComponent<Tile>(),_cardRefence.GetAtkRange(),
+            _actions.Attacking(_playerId,transform.parent.gameObject.GetComponent<Tile>(),_cardRefence.GetAtkRange(),
                                 Resources.Load("Prefabs/Vfxs/"+_cardRefence.GetAtkVfxId().ToString()) as GameObject);
         }
     }

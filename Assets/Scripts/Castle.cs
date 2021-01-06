@@ -34,7 +34,7 @@ public class Castle : MonoBehaviour
             {
                 Tile targetTile = GameCTL.Instance.GetGrid().GetTiles()[0,i]; 
                 if(targetTile.GetIsUsed() ){
-                    if(targetTile.GetUnit().GetUser() != PlayerCTL.Instance.GetId()){
+                    if(targetTile.GetUnit().GetPlayerId() != PlayerCTL.Instance.GetId()){
                         Instantiate(_spearPrefab, targetTile.transform.position, new Quaternion(targetTile.transform.rotation.x,
                                                                                             180,
                                                                                             targetTile.transform.rotation.z,1) );
@@ -45,9 +45,9 @@ public class Castle : MonoBehaviour
         }else{
             for (int i = 0; i < 7; i++)
             {
-                Tile targetTile = GameCTL.Instance.GetGrid().GetTiles()[14,i]; 
+                Tile targetTile = GameCTL.Instance.GetGrid().GetTiles()[GameCTL.Instance.GetGrid().GetColumns()-1,i]; 
                 if(targetTile.GetIsUsed()){
-                    if(targetTile.GetUnit().GetUser() == PlayerCTL.Instance.GetId()){
+                    if(targetTile.GetUnit().GetPlayerId() == PlayerCTL.Instance.GetId()){
                         Instantiate(_spearPrefab, targetTile.transform.position, targetTile.transform.rotation);
                         targetTile.GetUnit().TakeDamage(_damage); 
                     }

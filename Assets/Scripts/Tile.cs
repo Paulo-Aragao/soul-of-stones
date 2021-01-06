@@ -44,7 +44,7 @@ public class Tile : MonoBehaviour
         PlayerCTL.Instance.GetEventChangeColorTiles().AddListener(ChangeColor);
     }
     public void ChangeColor(){
-        if(PlayerCTL.Instance.GetDragingCard() && transform.position.x < 5){
+        if(PlayerCTL.Instance.GetDragingCard() && transform.position.x < GameCTL.Instance.GetListOfAllCards()[PlayerCTL.Instance.GetDragingId()].GetRespawnArea()){
             if(_isUsed){
                 _rend.material.color = Color.red;
             }else{
@@ -66,18 +66,18 @@ public class Tile : MonoBehaviour
     public void InstantiateUnit(GameObject unit,int playerId){
         var unit_ = unit.GetComponent<Unit>();
         _unit = Instantiate(unit_, _unitPosition.position, _unitPosition.transform.rotation);
-        _unit.SetUser(playerId);
+        _unit.SetPlayerId(playerId);
         _unit.transform.parent = gameObject.transform;
     }
     public void UpdateUnit(GameObject unit,int playerId){
         var unit_ = unit.GetComponent<Unit>();
-        _unit.SetUser(playerId);
+        _unit.SetPlayerId(playerId);
         _unit.transform.parent = gameObject.transform;
     }
     // The mesh goes red when the mouse is over it...
     void OnMouseEnter()
     {
-        if(PlayerCTL.Instance.GetDragingCard() && transform.position.x < 5){
+        if(PlayerCTL.Instance.GetDragingCard() && transform.position.x < GameCTL.Instance.GetListOfAllCards()[PlayerCTL.Instance.GetDragingId()].GetRespawnArea()){
             PlayerCTL.Instance.SetTargetTile(this);
         }
     }
@@ -87,7 +87,7 @@ public class Tile : MonoBehaviour
         //_rend.material.color -= new Color(0.1F, 0, 0) * Time.deltaTime;
         if(PlayerCTL.Instance.GetDragingCard()){
             PlayerCTL.Instance.GetEventChangeColorTiles().Invoke();
-            if(_isUsed || transform.position.x >= 5){
+            if(_isUsed || transform.position.x >= GameCTL.Instance.GetListOfAllCards()[PlayerCTL.Instance.GetDragingId()].GetRespawnArea()){
                 _rend.material.color = Color.red;
             }else{
                 _rend.material.color = Color.blue;

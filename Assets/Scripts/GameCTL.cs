@@ -69,7 +69,7 @@ public class GameCTL : MonoBehaviour
             //0-name	1-kingdom	2-card_type	3-cost_mana	4-unit_type	
             //5-hp	  6-atk_range	  7-atk_damage	8-atk_speed	
             //9-heal_power	 10-heal_range	  11-heal_speed	
-            //12-respawn_cooldown	13-move_speed 14-atk_vfx_id
+            //12-respawn_area	13-move_speed 14-atk_vfx_id
             int countId = 0;
             bool head = true;
             while (!reader.EndOfStream)
@@ -110,7 +110,7 @@ public class GameCTL : MonoBehaviour
                 foreach (var cardId in values)
                 {
                     Card card = GameCTL.Instance.PickACardInListOfAllCards(false,int.Parse(cardId));
-                    deck.Add(new Card(card.GetId(),card.GetName(),card.GetKingdom(),card.GetCardType(),card.GetRespawnCooldown(),
+                    deck.Add(new Card(card.GetId(),card.GetName(),card.GetKingdom(),card.GetCardType(),card.GetRespawnArea(),
                                        card.GetManaCost(),card.GetUnityType(),card.GetHp(),card.GetAtkRange(),card.GetAtkDamage(),
                                        card.GetAtkSpeed(),card.GetHealPower(),card.GetHealRange(),card.GetHealSpeed(),card.GetMoveSpeed(),
                                        card.GetAtkVfxId()));

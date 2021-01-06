@@ -23,6 +23,7 @@ public class PlayerCTL : MonoBehaviour
     private Tile _targetTile;
     //status variables
     private bool _dragingCard;
+    private int _dragingCardId;
     #region GETS AND SETS 
     public int GetId(){
         return _id;
@@ -54,6 +55,12 @@ public class PlayerCTL : MonoBehaviour
     public void SetMana(int mana){
         _mana = mana;
         _manaBar.value = 10 - mana;
+    }
+    public int GetDragingId(){
+        return _dragingCardId;
+    }
+    public void SetDragingId(int dragingCardId){
+        _dragingCardId = dragingCardId;
     }
     #endregion 
     #region SINGLETON 

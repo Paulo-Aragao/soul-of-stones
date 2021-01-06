@@ -24,7 +24,7 @@ public class ActionsUnit : MonoBehaviour
                 Tile targetTile = GameCTL.Instance.GetGrid().GetTiles()[(int)currentTile.transform.position.x + tile[0],
                                                                 (int)currentTile.transform.position.z + tile[1]];    
                 if(targetTile.GetIsUsed()){
-                    if(targetTile.GetUnit().GetUser() != playerID){
+                    if(targetTile.GetUnit().GetPlayerId() != playerID){
                         targetTile.GetUnit().TakeDamage(currentTile.GetUnit().GetCardRefecence().GetAtkDamage());
                         if(vfxPrefab != null){
                             targetTile.SpawnVFX(vfxPrefab);
@@ -46,7 +46,7 @@ public class ActionsUnit : MonoBehaviour
                 Tile targetTile = GameCTL.Instance.GetGrid().GetTiles()[(int)currentTile.transform.position.x + tile[0],
                                                                 (int)currentTile.transform.position.z + tile[1]];    
                 if(targetTile.GetIsUsed()){
-                    if(targetTile.GetUnit().GetUser() == playerID &&
+                    if(targetTile.GetUnit().GetPlayerId() == playerID &&
                       (targetTile.GetUnit().GetCardRefecence().GetUnityType() != "wall" && 
                       targetTile.GetUnit().GetCardRefecence().GetUnityType() != "healer" &&
                       targetTile.GetUnit().GetCardRefecence().GetUnityType() != "tower")
